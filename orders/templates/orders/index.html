@@ -1,0 +1,16 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+
+{% block title %}First{% endblock %}
+{% block content %}
+    <button class="bg-indigo-500 text-white font-bold py-2 px-4 rounded mt-2 ml-2">
+        Find Friends
+    </button>
+
+    {% if Topping %}
+        {% for toppings in Topping %}
+            {{ toppings }}<br>
+        {% endfor %}
+
+    {% endif %}
+{% endblock %}
