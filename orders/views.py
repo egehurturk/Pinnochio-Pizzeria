@@ -4,7 +4,7 @@ from .models import Pizza, Toppings, Subs, Pasta, Salads, DinnerPlatters
 
 # Create your views here.
 def index(request):
-    context = {
-        "Topping":Toppings.objects.all()
-    }
-    return render(request, "orders/index.html", context)
+    return render(request, "orders/index.html")
+
+def locate(request):
+    return render(request, "orders/locate.html")
