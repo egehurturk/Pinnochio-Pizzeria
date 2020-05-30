@@ -1,0 +1,145 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+
+{% block title %}Menu | Pinocchio{% endblock %}
+{% block content %}
+
+{#        NAVBAR               #}
+        <nav class="bg-red-800 border-b-8 border-red-800">
+          <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div class="relative flex items-center justify-between h-16">
+              <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                <!-- Mobile menu button-->
+                <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out" aria-label="Main menu" aria-expanded="false">
+                  <!-- Icon when menu is closed. -->
+                  <!-- Menu open: "hidden", Menu closed: "block" -->
+                  <svg class="block h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                  </svg>
+                  <!-- Icon when menu is open. -->
+                  <!-- Menu open: "block", Menu closed: "hidden" -->
+                  <svg class="hidden h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                <div class="hidden sm:block sm:ml-6">
+                  <div class="flex">
+                       <a href="{% url 'index' %}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white hover:text-white hover:bg-red-700 focus:outline-none focus:text-white focus:bg-red-600 transition duration-150 ease-in-out font-bold">Home</a>
+                    <a href="{% url 'menu' %}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-800 transition duration-150 ease-in-out font-bold">Menu</a>
+                    <a href="#" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white hover:text-white hover:bg-red-700 focus:outline-none focus:text-white focus:bg-red-600 transition duration-150 ease-in-out font-bold">My Orders</a>
+                    <a href="{% url 'locate' %}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white hover:text-white hover:bg-red-700 cus:outline-none focus:text-white focus:bg-red-600 transition duration-150 ease-in-out font-bold">Locate us</a>
+                  </div>
+                </div>
+              </div>
+                <img src="{% static 'orders/img/pizza.png' %}" alt="Logo" class="absolute mx-auto left-0 right-0 h-64 media" style="text-align: center">
+              <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  {% if user.is_authenticated %}
+                      <div class="inline-flex rounded-md shadow border-none">
+                            <a href="{% url 'logout' %}" class="bg-red-600 rounded px-5 py-2 text-white font-bold h-10 mr-3 uppercase">
+                                logout
+                             </a>
+                      </div>
+                  {% else %}
+                      <div class="inline-flex rounded-md shadow border-none">
+                            <a href="{% url 'login' %}" class="bg-red-600 rounded px-5 py-2 text-white font-bold h-10 mr-3 uppercase">
+                                login
+                             </a>
+                      </div>
+                      <div class="inline-flex rounded-md shadow border-none">
+                            <a href="#" class="bg-red-600 rounded px-5 py-2 text-white font-bold h-10 mr-3 uppercase">
+                                signup
+                             </a>
+                      </div>
+
+                    <button class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-red-700 transition duration-150 ease-in-out" aria-label="Notifications">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><path class="heroicon-ui" fill="#fff" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+                    </button>
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!--
+            Mobile menu, toggle classes based on menu state.
+
+            Menu open: "block", Menu closed: "hidden"
+          -->
+
+        </nav>
+
+{#    MENU CARD     #}
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="border-b border-red-800 px-4 py-5 sm:px-6">
+        <h1 class="flex justify-center font-bold text-5xl text-gray-900">Pinocchio's Menu</h1>
+        <!-- We use less vertical padding on card headers on desktop than on body sections -->
+      </div>
+      <div class="px-4 py-5 sm:p-6">
+      <h3>Subs</h3>
+        {% for sub in subs %}
+            <ul>
+                <li>
+                    {{ sub.name }}
+                </li>
+            </ul>
+        {% endfor %}
+          <br>
+      <h3>Regular Pizza</h3>
+        {% for regular in regularpizza %}
+            <ul>
+                <li>
+                    {{ regular }}
+                </li>
+            </ul>
+        {% endfor %}
+          <br>
+      <h3>Sicilian Pizza</h3>
+      {% for sicilian in sicilianpizza %}
+          <ul>
+              <li>
+                  {{ sicilian }}
+              </li>
+          </ul>
+      {% endfor %}
+          <br>
+      <h3>Dinner Platters</h3>
+      {% for onedinner in dinner %}
+          <ul>
+              <li>
+                  {{ onedinner }}
+              </li>
+          </ul>
+      {% endfor %}
+          <br>
+      <h3>Toppings</h3>
+      {% for topping in Toppings %}
+          <ul>
+              <li>
+                  {{ topping }}
+              </li>
+          </ul>
+      {% endfor %}
+          <br>
+      <h3>Pasta</h3>
+      {% for onepasta in Pasta %}
+          <ul>
+              <li>
+                  {{ onepasta }}
+              </li>
+          </ul>
+      {% endfor %}
+          <br>
+      <h3>Salads</h3>
+      {% for salad in salads %}
+          <ul>
+              <li>
+                  {{ salad }}
+              </li>
+          </ul>
+      {% endfor %}
+
+
+      </div>
+    </div>
+{% endblock %}
