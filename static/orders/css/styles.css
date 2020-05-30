@@ -2,6 +2,12 @@
     -webkit-filter: brightness(50%);
 }
 
+@media (max-width: 1165px) {
+    .media {
+        display: none;
+    }
+}
+
 /*.map-responsive{*/
 /*    overflow:hidden;*/
 /*    padding-bottom:56.25%;*/
@@ -15,3 +21,18 @@
 /*    width:100%;*/
 /*    position:absolute;*/
 /*}*/
+
+@keyframes infos {
+    from {
+
+    }
+    to {
+
+    }
+}
+
+.custom {
+    animation-name: infos;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
