@@ -26,20 +26,37 @@
               <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="hidden sm:block sm:ml-6">
                   <div class="flex">
-                       <a href="{% url 'index' %}" class="px-3 py-2 rounded-md text-sm font-medium leading-5 text-white hover:text-white hover:bg-red-700 focus:outline-none focus:text-white focus:bg-red-600 transition duration-150 ease-in-out font-bold">Home</a>
-                    <a href="#" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white hover:text-white hover:bg-red-700 focus:outline-none focus:text-white focus:bg-red-600 transition duration-150 ease-in-out font-bold">Menu</a>
+                      <a href="{% url 'index' %}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white hover:text-white hover:bg-red-700 focus:outline-none focus:text-white focus:bg-red-600 transition duration-150 ease-in-out font-bold">Home</a>
+                    <a href="{% url 'menu' %}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white hover:text-white hover:bg-red-700 focus:outline-none focus:text-white focus:bg-red-600 transition duration-150 ease-in-out font-bold">Menu</a>
                     <a href="#" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white hover:text-white hover:bg-red-700 focus:outline-none focus:text-white focus:bg-red-600 transition duration-150 ease-in-out font-bold">My Orders</a>
-                    <a href="{% url 'locate' %}" class="ml-4 px-3 mx-2 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-800 transition duration-150 ease-in-out font-bold">Locate us</a>
+                    <a href="{% url 'locate' %}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-800 transition duration-150 ease-in-out font-bold">Locate us</a>
                   </div>
                 </div>
               </div>
-                <img src="{% static 'orders/img/pizza.png' %}" alt="Logo" class="absolute mx-auto left-0 right-0 h-64" style="text-align: center">
+                <img src="{% static 'orders/img/pizza.png' %}" alt="Logo" class="absolute mx-auto left-0 right-0 h-64 media" style="text-align: center">
               <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  <button class="bg-red-600 rounded px-5 text-white font-bold h-10 mr-3">LOGIN</button>
-                  <button class="bg-red-600 rounded px-5 text-white font-bold h-10 mr-3">SIGNUP</button>
-                <button class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-red-700 transition duration-150 ease-in-out" aria-label="Notifications">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><path class="heroicon-ui" fill="#fff" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
-                </button>
+                  {% if user.is_authenticated %}
+                      <div class="inline-flex rounded-md shadow border-none">
+                            <a href="{% url 'logout' %}" class="bg-red-600 rounded px-5 py-2 text-white font-bold h-10 mr-3 uppercase">
+                                logout
+                             </a>
+                      </div>
+                  {% else %}
+                      <div class="inline-flex rounded-md shadow border-none">
+                            <a href="{% url 'login' %}" class="bg-red-600 rounded px-5 py-2 text-white font-bold h-10 mr-3 uppercase">
+                                login
+                             </a>
+                      </div>
+                      <div class="inline-flex rounded-md shadow border-none">
+                            <a href="#" class="bg-red-600 rounded px-5 py-2 text-white font-bold h-10 mr-3 uppercase">
+                                signup
+                             </a>
+                      </div>
+
+                    <button class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-red-700 transition duration-150 ease-in-out" aria-label="Notifications">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><path class="heroicon-ui" fill="#fff" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+                    </button>
+                  {% endif %}
               </div>
             </div>
           </div>
