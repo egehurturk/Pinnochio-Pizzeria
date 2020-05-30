@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # My Apps
     'orders.apps.OrdersConfig',
+    'users.apps.UsersConfig',
     # Third Party Apps
     'crispy_forms',
     # Django Apps
