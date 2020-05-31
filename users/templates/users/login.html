@@ -1,7 +1,7 @@
 {% extends 'orders/base.html' %}
 {% load static %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
 
@@ -75,7 +75,7 @@
         </div>
         <div>
             <p class="text-gray-600 flex justify-center mt-3">
-                Already Have An Account? <a href="#" class="ml-2">Sign Up.</a>
+                Don't have an accound yet? <a href="{% url 'register' %}" class="ml-2">Register Here.</a>
             </p>
         </div>
 
