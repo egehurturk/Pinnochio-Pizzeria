@@ -1,0 +1,26 @@
+{% extends "orders/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <div class="bg-gray-200 flex justify-center p-6 lg:h-full xl:h-full md:h-full sm:h-full overflow-y-scroll">
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group px-6 py-2">
+                        <legend class="border-bottom text-gray-900 font-bold">Create An Account</legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <small class="text-black flex justify-center">
+                            Already have an account? <a href="{% url 'login' %}" class="ml-2">Login.</a>
+                        </small>
+                     <div class="border-t-0 pt-3 border-gray-500">
+                         <button class="flex justify-center font-bold p-2 bg-red-700 rounded text-white flex w-full hover:bg-red-600" type="submit">Sign up</button>
+                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
