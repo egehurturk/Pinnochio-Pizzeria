@@ -9,12 +9,12 @@ def index(request):
     return render(request, "orders/index.html")
 
 
-@login_required(login_url="login")
+@login_required
 def locate(request):
     return render(request, "orders/locate.html")
 
 
-@login_required(login_url="login")
+@login_required
 def menu(request):
     context = {
         "regularpizza": Pizza.objects.filter(type="Regular").all(),
