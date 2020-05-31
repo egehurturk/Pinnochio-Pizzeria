@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
-from django.urls import reverse
 from django.contrib import messages
+from .forms import UserRegisterForm
 
 
 # Create your views here.
@@ -33,5 +33,19 @@ def logout_view(request):
     messages.success(request, "Successfully logged out")
     return render(request, "orders/index.html", {"message": "Logged Out."})
 
-def signup_view(request):
-    pass
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}!')
+            return redirect("login")
+
+    else:
+        form = UserRegisterForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'users/register.html', context)
