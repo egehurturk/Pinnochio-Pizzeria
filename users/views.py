@@ -24,14 +24,13 @@ def login_view(request):
         messages.success(request, f'{username} Welcome Back!')
         return redirect("index")
     else:
-        messages.warning(request, f'Invalid credentials')
         return render(request, "users/login.html")
 
 
 def logout_view(request):
     logout(request)
-    messages.success(request, "Successfully logged out")
-    return render(request, "orders/index.html", {"message": "Logged Out."})
+    messages.success(request, 'Successfully logged out!')
+    return redirect("index")
 
 
 def register(request):
