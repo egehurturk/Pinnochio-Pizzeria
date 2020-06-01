@@ -51,12 +51,21 @@
           </span>
              {% if messages %}
                 {% for foo in messages %}
-                    <div class="text-center py-4 lg:px-4">
-                      <div class="p-2 bg-red-300 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
-                        <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs text-white font-bold mr-3">IMPORTANT</span>
-                        <span class="font-semibold mr-2 text-left text-white flex-auto">{{ foo }}</span>
-                      </div>
-                    </div>
+                    {% ifequal foo.tags 'success' %}
+                        <div class="text-center py-4 lg:px-4">
+                          <div class="p-2 bg-green-400 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+                            <span class="flex rounded-full bg-green-500 uppercase px-2 py-1 text-xs text-white font-bold mr-3">IMPORTANT</span>
+                            <span class="font-semibold mr-2 text-left text-white flex-auto">{{ foo }}</span>
+                          </div>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4 lg:px-4">
+                          <div class="p-2 bg-red-300 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+                            <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs text-white font-bold mr-3">IMPORTANT</span>
+                            <span class="font-semibold mr-2 text-left text-white flex-auto">{{ foo }}</span>
+                          </div>
+                        </div>
+                    {% endifequal %}
                 {% endfor %}
             {% endif %}
         </div>
