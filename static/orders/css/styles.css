@@ -21,18 +21,3 @@
 /*    width:100%;*/
 /*    position:absolute;*/
 /*}*/
-
-@keyframes infos {
-    from {
-
-    }
-    to {
-
-    }
-}
-
-.custom {
-    animation-name: infos;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-}
