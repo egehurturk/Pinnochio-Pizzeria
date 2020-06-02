@@ -1,9 +1,72 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
-class Pizza(models.Model):
+# Choices - Toppings
+PEPPERONI = 'Pepperoni'
+SAUSAGE = 'Sausage'
+MUSHROOMS = 'Mushrooms'
+ONIONS = 'Onions'
+HAM = 'Ham'
+CANADIAN_BACON = 'Canadian Bacon'
+PINEAPPLE = 'Pineapple'
+EGGPLANT = 'Eggplant'
+TOMATO_BASIL = 'Tomato & Basil'
+GREEN_PEPPERS = 'Green Peppers'
+HAMBURGER = 'Hamburger'
+SPINACH = 'Spinach'
+ARTICHOKE = 'Artichoke'
+BUFFALO_CHICKEN = 'Buffalo Chicken'
+BARBECUE_CHICKEN = 'Barbecue Chicken'
+ANCHOVIES = 'Anchovies'
+BLACK_OLIVES = 'Black Olives'
+FRESH_GARLIC = 'Fresh Garlic'
+ZUCCHINI = 'Zucchini'
 
+TOPPINGS_CHOICES = [
+    (PEPPERONI, 'Pepperoni'),
+    (SAUSAGE, 'Sausage'),
+    (MUSHROOMS, 'Mushrooms'),
+    (ONIONS, 'Onions'),
+    (HAM, 'Ham'),
+    (CANADIAN_BACON, 'Canadian Bacon'),
+    (PINEAPPLE, 'Pineapple'),
+    (EGGPLANT, 'Eggplant'),
+    (TOMATO_BASIL, 'Tomato & Basil'),
+    (GREEN_PEPPERS, 'Green Peppers'),
+    (HAMBURGER, 'Hamburger'),
+    (SPINACH, 'Spinach'),
+    (ARTICHOKE, 'Artichoke'),
+    (BUFFALO_CHICKEN, 'Buffalo Chicken'),
+    (BARBECUE_CHICKEN, 'Barbecue Chicken'),
+    (ANCHOVIES, 'Anchovies'),
+    (BLACK_OLIVES, 'Black Olives'),
+    (FRESH_GARLIC, 'Fresh Garlic'),
+    (ZUCCHINI, 'Zucchini'),
+]
+
+
+# Choices - Product Types
+PIZZA = 'Pizza'
+TOPPINGS = 'Toppings'
+SUBS = 'Subs'
+PASTA = 'Pasta'
+SALADS = 'Salads'
+DINNER_PLATTERS = 'Dinner Platters'
+
+PRODUCT_TYPE_CHOICES = [
+    (PIZZA, 'Pizza'),
+    (TOPPINGS, 'Toppings'),
+    (SUBS, 'Subs'),
+    (PASTA, 'Pasta'),
+    (SALADS, 'Salads'),
+    (DINNER_PLATTERS, 'Dinner Platters'),
+]
+
+
+class Pizza(models.Model):
     """ Defines the pizza class (2 types: Regular, Sicilian) (Required fields: name, type, prices) """
 
     name = models.CharField(max_length=30)
@@ -18,11 +81,11 @@ class Pizza(models.Model):
         verbose_name = "Pizza"
         verbose_name_plural = "Pizzas"
 
-class Toppings(models.Model):
 
+class Toppings(models.Model):
     """ Defines the toppings (Required fields: name) """
 
-    name = models.CharField(max_length=20)
+    name = models.CharField(choices=TOPPINGS_CHOICES, max_length=30)
 
     def __str__(self):
         return f"{self.name}"
@@ -33,7 +96,6 @@ class Toppings(models.Model):
 
 
 class Subs(models.Model):
-
     """ Defines subs in the menu. (Required fields: name, prices) """
 
     name = models.CharField(max_length=30)
@@ -49,7 +111,6 @@ class Subs(models.Model):
 
 
 class Pasta(models.Model):
-
     """ Defines pastas in the menus (Required fields: name, price) """
 
     name = models.CharField(max_length=35)
@@ -63,9 +124,7 @@ class Pasta(models.Model):
         verbose_name_plural = "Pastas"
 
 
-
 class Salads(models.Model):
-
     """ Defines salads in the menu (Required Fields: name, price) """
 
     name = models.CharField(max_length=20)
@@ -80,7 +139,6 @@ class Salads(models.Model):
 
 
 class DinnerPlatters(models.Model):
-
     """ Defines the dinner platters in the menu """
 
     name = models.CharField(max_length=25)
@@ -95,3 +153,51 @@ class DinnerPlatters(models.Model):
         verbose_name_plural = "Dinner platters"
 
 
+class Orders(models.Model):
+    """ Contains Customer ID (Foreign Key to the User Model), Order Status (Pending, ...) """
+
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order_customer', default=None)
+    order_status = models.CharField(max_length=40)
+
+    def __str__(self):
+        return f'{self.customer} - {self.order_status}'
+
+    class Meta:
+        verbose_name = 'Order'
+        verbose_name_plural = 'Orders'
+
+class OrderItems(models.Model):
+    """ The items in the order (One Order can contain multiple OrderItems, one user can contain multiple Orders) """
+
+    order = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name="order")  # blank = False
+    product_type = models.CharField(max_length=50, choices=PRODUCT_TYPE_CHOICES)                            # blank = False
+    product_size = models.CharField(max_length=50)                            # blank = True
+    quantity = models.IntegerField()                                          # blank = False ?
+    cost = models.IntegerField(default=0)                                     # blank = False ?
+    toppings_1 = models.CharField(max_length=30, choices=TOPPINGS_CHOICES, default=None, blank=True)    # blank = True
+    toppings_2 = models.CharField(max_length=30, choices=TOPPINGS_CHOICES, default=None, blank=True) 
+    toppings_3 = models.CharField(max_length=30, choices=TOPPINGS_CHOICES, default=None, blank=True) 
+    toppings_4 = models.CharField(max_length=30, choices=TOPPINGS_CHOICES, default=None, blank=True)   
+
+
+    def __str__(self):
+        return \
+        f'''
+        Order No {self.order}, {self.product_size}, {self.product_type}, {self.quantity}, {self.cost}, {self.toppings_1}, {self.toppings_2}, {self.toppings_3}, {self.toppings_4}
+        '''
+
+    class Meta:
+        verbose_name = 'OrderItem'
+        verbose_name_plural = 'OrderItems'
+
+# TODO: Create a choices in the global scope about product types to use in product_type
+# TODO: That code will be repetitive, consider creating a main class that will conatin all the choices, and other classes will inherit
+# FIXME: In Product type choices, there aren't a choice for Pizza types
+# TODO: Check this code!
+''' 
+IMPORTANT QUESTIONS TO ASK:
+    - How can a user place an order?
+    - How can a user select toppings?
+    - How can a user select extras for subs?
+    
+'''
