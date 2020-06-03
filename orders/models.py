@@ -1,3 +1,8 @@
+# author: Ege Hurturk
+# Github: https://github.com/egehurturk
+# python 3.7
+# django 2.3
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -143,7 +148,7 @@ class DinnerPlatters(models.Model):
 
     name = models.CharField(max_length=25)
     small_price = models.DecimalField(max_digits=4, decimal_places=2)
-    large = models.DecimalField(max_digits=4, decimal_places=2)
+    large_price = models.DecimalField(max_digits=4, decimal_places=2)
 
     def __str__(self):
         return f"{self.name} {self.small_price} {self.large}"
@@ -173,7 +178,7 @@ class OrderItems(models.Model):
     product_type = models.CharField(max_length=50, choices=PRODUCT_TYPE_CHOICES)                            # blank = False
     product_size = models.CharField(max_length=50)                            # blank = True
     quantity = models.IntegerField()                                          # blank = False ?
-    cost = models.IntegerField(default=0)                                     # blank = False ?
+    cost = models.DecimalField(default=0,max_digits=4, decimal_places=2)                                     # blank = False ?
     toppings_1 = models.CharField(max_length=30, choices=TOPPINGS_CHOICES, default=None, blank=True)    # blank = True
     toppings_2 = models.CharField(max_length=30, choices=TOPPINGS_CHOICES, default=None, blank=True) 
     toppings_3 = models.CharField(max_length=30, choices=TOPPINGS_CHOICES, default=None, blank=True) 
@@ -201,3 +206,8 @@ IMPORTANT QUESTIONS TO ASK:
     - How can a user select extras for subs?
     
 '''
+
+# PROBLEMS: AUTO ADD THE USER (CURRENT LOGGED IN USER) TO THE ORDERS
+#           ---------  3/06/2020  ------------
+# Menu page
+
