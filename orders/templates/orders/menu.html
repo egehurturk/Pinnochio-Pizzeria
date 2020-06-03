@@ -95,76 +95,162 @@
 
         </nav>
 
-{#    MENU CARD     #}
-    <div class="bg-white overflow-hidden shadow rounded-lg">
-      <div class="border-b border-red-800 px-4 py-5 sm:px-6">
-        <h1 class="flex justify-center font-bold text-5xl text-gray-900">Pinocchio's Menu</h1>
-        <!-- We use less vertical padding on card headers on desktop than on body sections -->
-      </div>
-      <div class="px-4 py-5 sm:p-6">
-      <h3>Subs</h3>
-        {% for sub in subs %}
-            <ul>
-                <li>
-                    {{ sub.name }}
-                </li>
-            </ul>
-        {% endfor %}
-          <br>
-      <h3>Regular Pizza</h3>
-        {% for regular in regularpizza %}
-            <ul>
-                <li>
-                    {{ regular }}
-                </li>
-            </ul>
-        {% endfor %}
-          <br>
-      <h3>Sicilian Pizza</h3>
-      {% for sicilian in sicilianpizza %}
-          <ul>
-              <li>
-                  {{ sicilian }}
-              </li>
-          </ul>
-      {% endfor %}
-          <br>
-      <h3>Dinner Platters</h3>
-      {% for onedinner in dinner %}
-          <ul>
-              <li>
-                  {{ onedinner }}
-              </li>
-          </ul>
-      {% endfor %}
-          <br>
-      <h3>Toppings</h3>
-      {% for topping in Toppings %}
-          <ul>
-              <li>
-                  {{ topping }}
-              </li>
-          </ul>
-      {% endfor %}
-          <br>
-      <h3>Pasta</h3>
-      {% for onepasta in Pasta %}
-          <ul>
-              <li>
-                  {{ onepasta }}
-              </li>
-          </ul>
-      {% endfor %}
-          <br>
-      <h3>Salads</h3>
-      {% for salad in salads %}
-          <ul>
-              <li>
-                  {{ salad }}
-              </li>
-          </ul>
-      {% endfor %}
+<!-- Be sure to use this with a layout container that is full-width on mobile -->
 
-      </div>
-    </div>
+{#    MENU CARD     #}
+
+
+<div class="container">
+	<div class="row">
+        <h3 class="m-4 font-family font-bold text-5xl">Subs</h3>
+		<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+            <div class="MultiCarousel-inner">
+                {% for sub in subs %}
+                <div class="item">
+                    <div class="pad15">
+                        <p class="font-bold">{{ sub.name }}</p>
+                        {% if sub.small_price == 0 %}
+                            <p>Price: ${{ sub.large_price }}</p>
+                        {% elif sub.small_price < 1 or sub.large_price < 1 %}
+                            <p>Price: + ${{ sub.large_price }}</p>
+                        {% else %}
+                            <p>Small Price: ${{ sub.small_price }}</p>
+                            <p>Large Price: ${{ sub.large_price }}</p>
+                        {% endif %}
+                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+            <button class="btn btn-primary leftLst"><</button>
+            <button class="btn btn-primary rightLst">></button>
+        </div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+        <h3 class="m-4 font-family font-bold text-5xl">Regular Pizza</h3>
+		<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+            <div class="MultiCarousel-inner">
+                {% for regular in regularpizza %}
+                <div class="item">
+                    <div class="pad15">
+                        <p class="font-bold">{{ regular.name }}</p>
+                        {% if regular.small_price == 0 %}
+                            <p>Price: ${{ regular.large_price }}</p>
+                        {% else %}
+                            <p>Small Price: ${{ regular.small_price }}</p>
+                            <p>Large Price: ${{ regular.large_price }}</p>
+                        {% endif %}
+                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+        </div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+        <h3 class="m-4 font-family font-bold text-5xl">Sicilian Pizza</h3>
+		<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+            <div class="MultiCarousel-inner">
+                {% for sicilian in sicilianpizza %}
+                <div class="item">
+                    <div class="pad15">
+                        <p class="font-bold">{{ sicilian.name }}</p>
+                        {% if sicilian.small_price == 0 %}
+                            <p>Price: ${{ sicilian.large_price }}</p>
+                        {% else %}
+                            <p>Small Price: ${{ sicilian.small_price }}</p>
+                            <p>Large Price: ${{ sicilian.large_price }}</p>
+                        {% endif %}
+                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+        </div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+        <h3 class="m-4 font-family font-bold text-5xl">Dinner Platters</h3>
+		<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+            <div class="MultiCarousel-inner">
+                {% for onedinner in dinner %}
+                <div class="item">
+                    <div class="pad15">
+                        <p class="font-bold">{{ onedinner.name }}</p>
+                        {% if onedinner.small_price == 0 %}
+                            <p>Price: ${{ onedinner.large_price }}</p>
+                        {% else %}
+                            <p>Small Price: ${{ onedinner.small_price }}</p>
+                            <p>Large Price: ${{ onedinner.large_price }}</p>
+                        {% endif %}
+                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+        </div>
+	</div>
+</div>
+{#<div class="container">#}
+{#	<div class="row">#}
+{#        <h3 class="m-4 font-family font-bold text-5xl">Toppings</h3>#}
+{#		<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">#}
+{#            <div class="MultiCarousel-inner">#}
+{#                {% for topping in Toppings %}#}
+{#                <div class="item">#}
+{#                    <div class="pad15">#}
+{#                        <p class="font-bold">{{ topping.name }}</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#               {% endfor %}#}
+{#            </div>#}
+{#            <button class="btn btn-primary leftLst"><</button>#}
+{#            <button class="btn btn-primary rightLst">></button>#}
+{#        </div>#}
+{#	</div>#}
+{#</div>#}
+<div class="container">
+	<div class="row">
+        <h3 class="m-4 font-family font-bold text-5xl">Pastas</h3>
+		<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+            <div class="MultiCarousel-inner">
+                {% for onepasta in Pasta %}
+                <div class="item">
+                    <div class="pad15">
+                        <p class="font-bold">{{ onepasta.name }}</p>
+                            <p>Price: ${{ onepasta.price }}</p>
+                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+        </div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+        <h3 class="m-4 font-family font-bold text-5xl">Salads</h3>
+		<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
+            <div class="MultiCarousel-inner">
+                {% for salad in salads %}
+                <div class="item">
+                    <div class="pad15">
+                        <p class="font-bold">{{ salad.name }}</p>
+                            <p>Price: ${{ salad.price }}</p>
+                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+        </div>
+	</div>
+</div>
+
 {% endblock %}
