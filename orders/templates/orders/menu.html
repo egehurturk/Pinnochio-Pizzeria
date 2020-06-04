@@ -36,10 +36,11 @@
                 <img src="{% static 'orders/img/pizza.png' %}" alt="Logo" class="absolute mx-auto left-0 right-0 h-64 media" style="text-align: center">
               <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {% if user.is_authenticated %}
-                      <button class="mr-5 p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-red-700 transition duration-150 ease-in-out" aria-label="Notifications">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><path class="heroicon-ui" fill="#fff" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
-                      </button>
-
+{#                       MAKE THE SVG ICON A LINK TO THE URL 'CART'                  #}
+                      <a href="{% url 'cart' %}" class="mr-5 p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-red-700 transition duration-150 ease-in-out" aria-label="Notifications">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><path class="heroicon-ui" fill="#fff" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                         </svg>
+                      </a>
                      <div class="relative inline-block text-left z-10">
                           <div>
                             <span class="rounded-md">
@@ -70,18 +71,16 @@
                           </div>
                         </div>
                   {% else %}
-                      <div class="inline-flex rounded-md shadow border-none">
+                      <div class="inline-flex rounded-md border-none">
                             <a href="{% url 'login' %}" class="bg-red-600 rounded px-5 py-2 text-white font-bold h-10 mr-3 uppercase">
                                 login
                              </a>
                       </div>
-                      <div class="inline-flex rounded-md shadow border-none">
+                      <div class="inline-flex rounded-md border-none">
                             <a href="{% url 'register' %}" class="bg-red-600 rounded px-5 py-2 text-white font-bold h-10 mr-3 uppercase">
                                 signup
                              </a>
                       </div>
-
-
                   {% endif %}
               </div>
             </div>
@@ -110,14 +109,34 @@
                     <div class="pad15">
                         <p class="font-bold">{{ sub.name }}</p>
                         {% if sub.small_price == 0 %}
-                            <p>Price: ${{ sub.large_price }}</p>
+                            <div class="flex">
+                                <input type="radio" id="subs-only={{ sub.id }}" name="sub">
+                                <label for="subs-only-{{ sub.id }}">
+                                    <p class="ml-1">Price: ${{ sub.large_price }}</p>
+                                </label>
+                            </div>
                         {% elif sub.small_price < 1 or sub.large_price < 1 %}
-                            <p>Price: + ${{ sub.large_price }}</p>
+                            <div class="flex">
+                                <input type="radio" id="subs-only-2-{{ sub.id }}" name="sub">
+                                <label for="subs-only-2-{{sub.id }}">
+                                    <p class="ml-1">Price: ${{ sub.large_price }}</p>
+                                </label>
+                            </div>
                         {% else %}
-                            <p>Small Price: ${{ sub.small_price }}</p>
-                            <p>Large Price: ${{ sub.large_price }}</p>
+                            <div class="flex">
+                                <input type="radio" id="subs-small-{{ sub.id }}" name="sub">
+                                <label for="subs-small-{{ sub.id }}">
+                                   <p class="ml-1">Small Price: ${{ sub.small_price }}</p>
+                                </label>
+                            </div>
+                            <div class="flex">
+                                <input type="radio" id="subs-large-{{ sub.id }}" name="sub">
+                                <label for="subs-large-{{ sub.id }}">
+                                    <p class="ml-1">Large Price: ${{ sub.large_price }}</p>
+                                </label>
+                            </div>
                         {% endif %}
-                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                        <button @click="showModal = true" data-id="sub-{{ sub.id }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
                     </div>
                 </div>
                {% endfor %}
@@ -138,12 +157,27 @@
                     <div class="pad15">
                         <p class="font-bold">{{ regular.name }}</p>
                         {% if regular.small_price == 0 %}
-                            <p>Price: ${{ regular.large_price }}</p>
+                            <div class="flex">
+                                <input type="radio" id="regular-only={{ regular.id }}" name="regular">
+                                <label for="regular-only-{{ regular.id }}">
+                                    <p class="ml-1">Price: ${{ regular.large_price }}</p>
+                                </label>
+                            </div>
                         {% else %}
-                            <p>Small Price: ${{ regular.small_price }}</p>
-                            <p>Large Price: ${{ regular.large_price }}</p>
+                            <div class="flex">
+                                <input type="radio" id="regular-small-{{ regular.id }}" name="regular">
+                                <label for="regular-small-{{ regular.id }}">
+                                   <p class="ml-1">Small Price: ${{ regular.small_price }}</p>
+                                </label>
+                            </div>
+                            <div class="flex">
+                                <input type="radio" id="regular-large-{{ regular.id }}" name="regular">
+                                <label for="regular-large-{{ regular.id }}">
+                                    <p class="ml-1">Large Price: ${{ regular.large_price }}</p>
+                                </label>
+                            </div>
                         {% endif %}
-                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                        <button @click="showModal = true" data-id="regular_pizza-{{ regular.id }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
                     </div>
                 </div>
                {% endfor %}
@@ -161,12 +195,27 @@
                     <div class="pad15">
                         <p class="font-bold">{{ sicilian.name }}</p>
                         {% if sicilian.small_price == 0 %}
-                            <p>Price: ${{ sicilian.large_price }}</p>
+                           <div class="flex">
+                                <input type="radio" id="sicilian-only={{ sicilian.id }}" name="sicilian">
+                                <label for="sicilian-only-{{ sicilian.id }}">
+                                    <p class="ml-1">Price: ${{ sicilian.large_price }}</p>
+                                </label>
+                            </div>
                         {% else %}
-                            <p>Small Price: ${{ sicilian.small_price }}</p>
-                            <p>Large Price: ${{ sicilian.large_price }}</p>
+                            <div class="flex">
+                                <input type="radio" id="sicilian-small-{{ sicilian.id }}" name="sicilian">
+                                <label for="sicilian-small-{{ sicilian.id }}">
+                                   <p class="ml-1">Small Price: ${{ sicilian.small_price }}</p>
+                                </label>
+                            </div>
+                            <div class="flex">
+                                <input type="radio" id="sicilian-large-{{ sicilian.id }}" name="sicilian">
+                                <label for="sicilian-large-{{ sicilian.id }}">
+                                    <p class="ml-1">Large Price: ${{ sicilian.large_price }}</p>
+                                </label>
+                            </div>
                         {% endif %}
-                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                        <button @click="showModal = true" data-id="sicilian_pizza-{{ sicilian.id|add:"-5" }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
                     </div>
                 </div>
                {% endfor %}
@@ -184,12 +233,27 @@
                     <div class="pad15">
                         <p class="font-bold">{{ onedinner.name }}</p>
                         {% if onedinner.small_price == 0 %}
-                            <p>Price: ${{ onedinner.large_price }}</p>
+                            <div class="flex">
+                                <input type="radio" id="onedinner-only={{ onedinner.id }}" name="onedinner">
+                                <label for="onedinner-only-{{ onedinner.id }}">
+                                    <p class="ml-1">Price: ${{ onedinner.large_price }}</p>
+                                </label>
+                            </div>
                         {% else %}
-                            <p>Small Price: ${{ onedinner.small_price }}</p>
-                            <p>Large Price: ${{ onedinner.large_price }}</p>
+                            <div class="flex">
+                                <input type="radio" id="onedinner-small-{{ onedinner.id }}" name="onedinner">
+                                <label for="onedinner-small-{{ onedinner.id }}">
+                                   <p class="ml-1">Small Price: ${{ onedinner.small_price }}</p>
+                                </label>
+                            </div>
+                            <div class="flex">
+                                <input type="radio" id="onedinner-large-{{ onedinner.id }}" name="onedinner">
+                                <label for="onedinner-large-{{ onedinner.id }}">
+                                    <p class="ml-1">Large Price: ${{ onedinner.large_price }}</p>
+                                </label>
+                            </div>
                         {% endif %}
-                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                        <button @click="showModal = true" data-id="dinner-{{ onedinner.id|add:"-1" }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
                     </div>
                 </div>
                {% endfor %}
@@ -225,7 +289,7 @@
                     <div class="pad15">
                         <p class="font-bold">{{ onepasta.name }}</p>
                             <p>Price: ${{ onepasta.price }}</p>
-                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                        <button @click="showModal = true" data-id="pasta-{{ onepasta.id }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
                     </div>
                 </div>
                {% endfor %}
@@ -244,7 +308,7 @@
                     <div class="pad15">
                         <p class="font-bold">{{ salad.name }}</p>
                             <p>Price: ${{ salad.price }}</p>
-                        <button class="rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                        <button @click="showModal = true" data-id="salad-{{ salad.id }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
                     </div>
                 </div>
                {% endfor %}
@@ -252,5 +316,55 @@
         </div>
 	</div>
 </div>
+
+
+    <div x-show="showModal" class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
+    <div
+            x-transition:enter="ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-leave="opacity-100"
+            x-transition:leave="ease-in duration-200"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            x-show="showModal"
+            class="fixed inset-0 transition-opacity"
+    >
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+
+    <div
+            x-transition:enter="ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            x-transition:enter-leave="opacity-100 translate-y-0 sm:scale-100"
+            x-transition:leave="ease-in duration-200"
+            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            class="bg-white rounded-lg absolute right-0 top-0 mt-16 mr-8 px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6" :class="{ 'show d-block': showModal }" x-show="showModal" role="dialog" aria-modal="true" aria-labelledby="modal-headline"
+    >
+    <div>
+      <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+        <svg class="h-6 w-6 text-green-600" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <div class="mt-3 text-center sm:mt-5">
+        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+          Added to the cart
+        </h3>
+        <div class="mt-2">
+          <p class="text-sm leading-5 text-gray-500">
+            the product itself Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, nobis.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-5 sm:mt-6">
+      <span class="flex w-full rounded-md shadow-sm">
+        <button @click="showModal = false" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-gray-900 text-base leading-6 font-medium text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+          Go back to menu
+        </button>
+      </span>
+    </div>
+  </div>
 
 {% endblock %}
