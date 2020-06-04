@@ -127,4 +127,20 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
 
-})
+
+    $('.orderButton').click( (event)=> {
+        var product_id = event.target.dataset.id;
+        var sizing = event.target.dataset.size;
+        const request = new XMLHttpRequest();
+
+        request.open('GET', `/cart?${product_id}=${sizing}`);
+        request.send()
+
+
+    });
+
+
+
+});
+
+
