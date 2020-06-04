@@ -151,7 +151,7 @@ class DinnerPlatters(models.Model):
     large_price = models.DecimalField(max_digits=4, decimal_places=2)
 
     def __str__(self):
-        return f"{self.name} {self.small_price} {self.large}"
+        return f"{self.name} {self.small_price} {self.large_price}"
 
     class Meta:
         verbose_name = "Dinner platters"
@@ -210,4 +210,8 @@ IMPORTANT QUESTIONS TO ASK:
 # PROBLEMS: AUTO ADD THE USER (CURRENT LOGGED IN USER) TO THE ORDERS
 #           ---------  3/06/2020  ------------
 # Menu page
+
+
+# TODO: GET THE SIZE OF THE SELECTED PRODUCT WITH JAVASCRIPT AND PUT THAT VAR INTO THE AJAX LINK, DO NOT ALLOW TO LEAVE RADIO BUTTON BLANK
+
 
