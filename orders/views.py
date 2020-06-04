@@ -26,3 +26,9 @@ def menu(request):
         "Pasta": Pasta.objects.all()
     }
     return render(request, "orders/menu.html", context)
+
+
+@login_required
+def cart(request):
+
+    return render(request, "orders/cart.html")
