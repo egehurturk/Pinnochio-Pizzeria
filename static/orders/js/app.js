@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', () => {
     const dropdown = $('#myDropdown');
     const dropButton = $('.dropbtn');
     const closeButton = $('closeNotification');
@@ -8,16 +8,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
     dropdown.hide();
 
     // When the profile button is clicked, open the menu
-    dropButton.click(()=> {
+    dropButton.click(() => {
         dropdown.fadeToggle();
     });
 
     // When it is focused out, close the menu.
-    dropButton.focusout(()=> {
+    dropButton.focusout(() => {
         dropdown.fadeOut();
     });
 
-    closeButton.click(()=> {
+    closeButton.click(() => {
         console.log('clicked')
         notification.fadeOut();
     });
@@ -35,8 +35,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     });
 
     ResCarouselSize();
-
-
 
 
     $(window).resize(function () {
@@ -64,20 +62,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
             if (bodyWidth >= 1200) {
                 incno = itemsSplit[3];
                 itemWidth = sampwidth / incno;
-            }
-            else if (bodyWidth >= 992) {
+            } else if (bodyWidth >= 992) {
                 incno = itemsSplit[2];
                 itemWidth = sampwidth / incno;
-            }
-            else if (bodyWidth >= 768) {
+            } else if (bodyWidth >= 768) {
                 incno = itemsSplit[1];
                 itemWidth = sampwidth / incno;
-            }
-            else {
+            } else {
                 incno = itemsSplit[0];
                 itemWidth = sampwidth / incno;
             }
-            $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+            $(this).css({'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers});
             $(this).find(itemClass).each(function () {
                 $(this).outerWidth(itemWidth);
             });
@@ -105,8 +100,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 translateXval = 0;
                 $(el + ' ' + leftBtn).addClass("over");
             }
-        }
-        else if (e == 1) {
+        } else if (e == 1) {
             var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
             translateXval = parseInt(xds) + parseInt(itemWidth * s);
             $(el + ' ' + leftBtn).removeClass("over");
@@ -127,20 +121,53 @@ document.addEventListener('DOMContentLoaded', ()=>{
     }
 
 
+    // Sizing Options:
+    // 1 = Small
+    // 2 = Large
+    // If type is 0, then it means that the product is either PASTA or SALAD
+    $('.orderButton').click((event) => {
 
-    $('.orderButton').click( (event)=> {
         var product_id = event.target.dataset.id;
-        var sizing = event.target.dataset.size;
+        var count = false
+        var sizing_small = $(`#${product_id.split("-")[0]}-small-${product_id.split("-")[1]}`).is(":checked");
+        var sizing_large = $(`#${product_id.split("-")[0]}-large-${product_id.split("-")[1]}`).is(":checked");
+
+
+        // // Special cases for pasta and salad:
+
+        if (product_id.split("-")[0] != 'pasta' && product_id.split("-")[0] !='salad') {
+            if (sizing_small) {
+                count = 'small';
+            } else if (sizing_large) {
+                count = 'large';
+            } else {
+                alert('Nothing selected');
+                return;
+            }
+        }
+
         const request = new XMLHttpRequest();
 
-        request.open('GET', `/cart?${product_id}=${sizing}`);
+
+        request.open('GET', `/showcart?product=${product_id}&type=${count}`);
+
+        request.onload = function () {
+            const data = JSON.parse(request.responseText)
+            var product = data.product_id;
+            var size = data.size;
+
+            //   SIZE: 1=SMALL / 2=LARGE / 0=PASTA OR SALAD
+
+            $('#subs').text(`${product} is product and ${size} is size`)
+        }
+
         request.send()
 
 
     });
 
 
-
 });
 
 
+// bugs in SICILIAN and DINNER PLATTERS
