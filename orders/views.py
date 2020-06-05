@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Pizza, Toppings, Subs, Pasta, Salads, DinnerPlatters
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -29,6 +30,11 @@ def menu(request):
 
 
 @login_required
-def cart(request):
+def showcart(request):
+    return JsonResponse({"product_id": request.GET['product'], "size": request.GET["type"]})
 
+
+@login_required
+def cart(request):
     return render(request, "orders/cart.html")
+
