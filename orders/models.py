@@ -54,7 +54,8 @@ TOPPINGS_CHOICES = [
 
 
 # Choices - Product Types
-PIZZA = 'Pizza'
+REGULAR_PIZZA = 'Regular Pizza'
+SICILIAN_PIZZA = 'Sicilian Pizza'
 TOPPINGS = 'Toppings'
 SUBS = 'Subs'
 PASTA = 'Pasta'
@@ -62,7 +63,8 @@ SALADS = 'Salads'
 DINNER_PLATTERS = 'Dinner Platters'
 
 PRODUCT_TYPE_CHOICES = [
-    (PIZZA, 'Pizza'),
+    (REGULAR_PIZZA, 'Regular Pizza'),
+    (SICILIAN_PIZZA, 'Sicilian Pizza'),
     (TOPPINGS, 'Toppings'),
     (SUBS, 'Subs'),
     (PASTA, 'Pasta'),
@@ -195,10 +197,8 @@ class OrderItems(models.Model):
         verbose_name = 'OrderItem'
         verbose_name_plural = 'OrderItems'
 
-# TODO: Create a choices in the global scope about product types to use in product_type
-# TODO: That code will be repetitive, consider creating a main class that will conatin all the choices, and other classes will inherit
+
 # FIXME: In Product type choices, there aren't a choice for Pizza types
-# TODO: Check this code!
 ''' 
 IMPORTANT QUESTIONS TO ASK:
     - How can a user place an order?
@@ -209,9 +209,5 @@ IMPORTANT QUESTIONS TO ASK:
 
 # PROBLEMS: AUTO ADD THE USER (CURRENT LOGGED IN USER) TO THE ORDERS
 #           ---------  3/06/2020  ------------
-# Menu page
-
-
-# TODO: GET THE SIZE OF THE SELECTED PRODUCT WITH JAVASCRIPT AND PUT THAT VAR INTO THE AJAX LINK, DO NOT ALLOW TO LEAVE RADIO BUTTON BLANK
 
 
