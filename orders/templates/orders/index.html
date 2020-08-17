@@ -36,10 +36,51 @@
                 <img src="{% static 'orders/img/pizza.png' %}" alt="Logo" class="absolute mx-auto left-0 right-0 h-64 media" style="text-align: center">
               <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {% if user.is_authenticated %}
-                      <a href="{% url 'cart' %}" class="mr-5 p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-red-700 transition duration-150 ease-in-out" aria-label="Notifications">
-                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><path class="heroicon-ui" fill="#fff" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                         </svg>
-                      </a>
+                      <div x-data="{open: false }"  class="text-left">
+                        <div>
+                          <span class="rounded-md shadow-sm">
+                            <button @click="open = true" class="mr-5 p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-red-700 transition duration-150 ease-in-out" aria-label="Notifications">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><path class="heroicon-ui" fill="#fff" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+                              </button>
+                          </span>
+                        </div>
+
+
+                      <!-- Dropdown panel, show/hide based on dropdown state.
+
+                      Entering: "transition ease-out duration-100"
+                        From: "transform opacity-0 scale-95"
+                        To: "transform opacity-100 scale-100"
+                      Leaving: "transition ease-in duration-75"
+                        From: "transform opacity-100 scale-100"
+                        To: "transform opacity-0 scale-95" -->
+
+                    <div  x-show="open"
+                        @click.away="open = false"
+                        x-transition:enter="transition ease-out duration-100"
+                        x-transition:enter-start="transform opacity-0 scale-95"
+                        x-transition:enter-leave="ransform opacity-100 scale-100"
+                        x-transition:leave = "transition ease-in duration-75"
+                        x-transition:leave-start = "transform opacity-100 scale-100"
+                        x-transition:leave-end = "transform opacity-0 scale-95"
+                        class="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg z-10 right-0 mr-24">
+                      <div class="rounded-md bg-white shadow-xs">
+                        <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                          <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Account settings
+                          </a>
+                          <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">Support
+                          </a>
+                          <a href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">License
+                          </a>
+                          <form method="POST" action="#">
+                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" role="menuitem">
+                              Sign out
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
                      <div class="relative inline-block text-left z-10">
                           <div>
@@ -95,7 +136,7 @@
         </nav>
     {% if messages %}
         {% for message in messages %}
-            <div class="fixed inset-0 flex items-end shadow-lg justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end z-20 w-full" id="notificationsLog">
+            <div x-data="{ open: true }" class="fixed inset-0 flex items-end shadow-lg justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end z-20 w-full" id="notificationsLog">
           <!--
             Notification panel, show/hide based on alert state.
 
@@ -107,7 +148,16 @@
               To: "opacity-0"
           -->
 
-          <div x-transition:enter="transform ease-out duration-300 transition" x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2" x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto">
+          <div
+                  x-show="open"
+                  x-transition:enter="transform ease-out duration-300 transition"
+                  x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+                  x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0"
+                  x-transition:leave="transition ease-in duration-100"
+                  x-transition:leave-start="opacity-100"
+                  x-transition:leave-end="opacity-0"
+                  class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto">
+
             <div class="rounded-lg shadow-xs overflow-hidden">
               <div class="p-4">
                 <div class="flex items-start">
@@ -117,7 +167,7 @@
                     </svg>
                   </div>
                   <div class="ml-3 w-0 flex-1 pt-0.5">
-                    <p class="text-sm leading-5 font-medium text-gray-900 ml-2 text-lg pt-2">
+                    <p class="text-sm leading-5 font-medium text-gray-900 ml-2 pt-2">
                       {{ message }}
                     </p>
                   </div>

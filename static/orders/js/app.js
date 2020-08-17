@@ -151,15 +151,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         request.open('GET', `/showcart?product=${product_id}&type=${count}`);
 
-        request.onload = function () {
-            const data = JSON.parse(request.responseText)
-            var product = data.product_id;
-            var size = data.size;
-
-            //   SIZE: 1=SMALL / 2=LARGE / 0=PASTA OR SALAD
-
-            $('#subs').text(`${product} is product and ${size} is size`)
-        }
+        // request.onload = function () {
+        //     const data = JSON.parse(request.responseText)
+        //     var product = data.product_id;
+        //     var size = data.size;
+        //     var place = $('#menuItems')
+        //
+        //     //   SIZE: 1=SMALL / 2=LARGE / 0=PASTA OR SALAD
+        //
+        //    place.text(`${product} is product and ${size} is size`)
+        // }
 
         request.send()
 

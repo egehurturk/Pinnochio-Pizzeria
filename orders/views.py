@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Pizza, Toppings, Subs, Pasta, Salads, DinnerPlatters
+from .models import Pizza, Toppings, Subs, Pasta, Salads, DinnerPlatters, Orders, OrderItems
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
@@ -31,10 +31,13 @@ def menu(request):
 
 @login_required
 def showcart(request):
-    return JsonResponse({"product_id": request.GET['product'], "size": request.GET["type"]})
+    product = request.GET['product']  # :variable = subs-2 (the second product of subs in the menu)
+    size = 'No'  # :variable =  large / small / false (for pasta and salad)
+    if request.GET["type"] == 'small':
+        size = 'small_price'
+    if request.GET['type'] == 'large':
+        size = 'large_price'
 
-
-@login_required
-def cart(request):
-    return render(request, "orders/cart.html")
-
+    product_name = product.split('-')[0]  # :variable = pasta / subs / regular ...
+    product_id = product.split('-')[1]  # :variable = 1 / 2 / ...
+    print(product, size, product_name, product_id)

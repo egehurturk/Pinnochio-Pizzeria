@@ -36,11 +36,41 @@
                 <img src="{% static 'orders/img/pizza.png' %}" alt="Logo" class="absolute mx-auto left-0 right-0 h-64 media" style="text-align: center">
               <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {% if user.is_authenticated %}
-{#                       MAKE THE SVG ICON A LINK TO THE URL 'CART'                  #}
-                      <a href="{% url 'cart' %}" class="mr-5 p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-red-700 transition duration-150 ease-in-out" aria-label="Notifications">
-                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><path class="heroicon-ui" fill="#fff" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                         </svg>
-                      </a>
+                      <div x-data="{open: false }"  class="text-left">
+                        <div>
+                          <span class="rounded-md shadow-sm">
+                            <button @click="open = true" class="mr-5 p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-red-700 transition duration-150 ease-in-out" aria-label="Notifications">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><path class="heroicon-ui" fill="#fff" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+                              </button>
+                          </span>
+                        </div>
+
+
+                      <!-- Dropdown panel, show/hide based on dropdown state.
+
+                      Entering: "transition ease-out duration-100"
+                        From: "transform opacity-0 scale-95"
+                        To: "transform opacity-100 scale-100"
+                      Leaving: "transition ease-in duration-75"
+                        From: "transform opacity-100 scale-100"
+                        To: "transform opacity-0 scale-95" -->
+
+                    <div  x-show="open"
+                        @click.away="open = false"
+                        x-transition:enter="transition ease-out duration-100"
+                        x-transition:enter-start="transform opacity-0 scale-95"
+                        x-transition:enter-leave="ransform opacity-100 scale-100"
+                        x-transition:leave = "transition ease-in duration-75"
+                        x-transition:leave-start = "transform opacity-100 scale-100"
+                        x-transition:leave-end = "transform opacity-0 scale-95"
+                        class="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg z-10 right-0 mr-24">
+                      <div class="rounded-md bg-white shadow-xs">
+                        <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                         <p id="menuItems"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                      <div class="relative inline-block text-left z-10">
                           <div>
                             <span class="rounded-md">

@@ -56,7 +56,7 @@ TOPPINGS_CHOICES = [
 # Choices - Product Types
 REGULAR_PIZZA = 'Regular Pizza'
 SICILIAN_PIZZA = 'Sicilian Pizza'
-TOPPINGS = 'Toppings'
+# TOPPINGS = 'Toppings'
 SUBS = 'Subs'
 PASTA = 'Pasta'
 SALADS = 'Salads'
@@ -65,7 +65,7 @@ DINNER_PLATTERS = 'Dinner Platters'
 PRODUCT_TYPE_CHOICES = [
     (REGULAR_PIZZA, 'Regular Pizza'),
     (SICILIAN_PIZZA, 'Sicilian Pizza'),
-    (TOPPINGS, 'Toppings'),
+    # (TOPPINGS, 'Toppings'),
     (SUBS, 'Subs'),
     (PASTA, 'Pasta'),
     (SALADS, 'Salads'),
@@ -163,7 +163,7 @@ class DinnerPlatters(models.Model):
 class Orders(models.Model):
     """ Contains Customer ID (Foreign Key to the User Model), Order Status (Pending, ...) """
 
-    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='order_customer', default=None)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer', default=None)
     order_status = models.CharField(max_length=40)
 
     def __str__(self):
@@ -199,11 +199,13 @@ class OrderItems(models.Model):
 
 
 # FIXME: In Product type choices, there aren't a choice for Pizza types
+
 ''' 
 IMPORTANT QUESTIONS TO ASK:
     - How can a user place an order?
     - How can a user select toppings?
     - How can a user select extras for subs?
+    - When should I create Order model?
     
 '''
 
