@@ -1,0 +1,13 @@
+                                    ============= CHANGELOG ==========
+
+Changelog: I'll write my Bugs, Errors, Improvements, Features here.
+
+
+----- Date: 21 August, Friday -----
+# FIXME: I created 2 same menu items for items that has `small_price` and `large_price`. While rendering the HTML (menu.html), integrate those 2 menu Items into one displaying LARGE and SMALL prices.
+With menu items that does not have small/large prices, it is OK
+# TODO: Design of Menu Items
+# TODO: Refactor the AJAX in app.js and turn into jQuery AJAX.
+# TODO: Work on the showcart view on orders.views. That view must return a JsonResponse object and parse in javascript.
+
+

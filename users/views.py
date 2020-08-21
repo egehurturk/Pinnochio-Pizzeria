@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib import messages
 from .forms import UserRegisterForm
-from orders.models import Orders
+
 
 # Create your views here.
 

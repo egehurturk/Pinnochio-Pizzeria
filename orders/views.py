@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Pizza, Toppings, Subs, Pasta, Salads, DinnerPlatters, Orders, OrderItems
+from .models import Pizza, Topping, Sub, Extra, Pasta, Salad, Dinner
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
@@ -18,12 +18,12 @@ def locate(request):
 @login_required
 def menu(request):
     context = {
-        "regularpizza": Pizza.objects.filter(type="Regular").all(),
-        "sicilianpizza": Pizza.objects.filter(type="Sicilian").all(),
-        "subs": Subs.objects.all(),
-        "dinner": DinnerPlatters.objects.all(),
-        "salads": Salads.objects.all(),
-        "Toppings": Toppings.objects.all(),
+        "regularpizza": Pizza.objects.filter(crust="Regular").all(),
+        "sicilianpizza": Pizza.objects.filter(crust="Sicilian").all(),
+        "subs": Sub.objects.all(),
+        "dinner": Dinner.objects.all(),
+        "salads": Salad.objects.all(),
+        "Toppings": Topping.objects.all(),
         "Pasta": Pasta.objects.all()
     }
     return render(request, "orders/menu.html", context)
