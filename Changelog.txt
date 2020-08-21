@@ -10,4 +10,18 @@ With menu items that does not have small/large prices, it is OK
 # TODO: Refactor the AJAX in app.js and turn into jQuery AJAX.
 # TODO: Work on the showcart view on orders.views. That view must return a JsonResponse object and parse in javascript.
 
-
+Snippet:
+`mylist = [Sub.objects.all()]
+appemd = [i for i in mylist]
+small = []
+large = []
+for i,j in enumerate(appemd):
+  if j%2==0:
+    small.append(j.price)
+  else:
+    large.append(j.price)
+    
+for sm, lg in zip(small, large):
+  print(f'{sm} {lg}')`
+  
+Or instead of doing this way, alter model Item to have small prices and large prices fields.
