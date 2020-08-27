@@ -25,3 +25,55 @@ for sm, lg in zip(small, large):
   print(f'{sm} {lg}')`
   
 Or instead of doing this way, alter model Item to have small prices and large prices fields.
+
+====== 27 August Thursday =====
+Created `util.py` file to scrape Menu from the website:
+
+import requests
+import os
+import sys
+from bs4 import BeautifulSoup
+import pprint
+import re
+
+__all__ = ['Scraper']
+# .foodmenu, .toppingmenu,
+# [] -> foodmenu, [] -> toppingmenu
+
+class Scraper:
+
+
+    def __init__(self, url, file_):
+        self.url = url
+        self.file_ = file_
+
+    def get_response(self) -> requests.Response:
+        response = requests.get(self.url)
+        response.raise_for_status()
+        return response
+
+    def parse(self, response):
+        soup = BeautifulSoup(response.text, 'html.parser')
+        self.elems_food = soup.select("table.foodmenu > tbody > tr")
+        self.elems_toppings = soup.select("table.toppingmenu > tbody > tr")
+        return self.elems_food, self.elems_toppings
+
+
+    def save_to_file(self):
+        mode = 'a' if os.path.exists(re.findall(f'utilcontent/{self.file_}_food|topping.txt', )) else 'w'
+        try:
+            with open(f'utilcontent/{self.file_}_food.txt', mode) as f:
+              with open(f'utilcontent/{self.file_}_topping.txt', mode) as t:
+                f.write(str(self.elems_food))
+                t.write(str(self.elems_toppings))
+
+            print('Saved to file!')
+        except FileNotFoundError:
+            print('File cannot be found')
+            sys.exit(1)
+        except IOError:
+            print('File cannot be found. Enter a valid file name.')
+            sys.exit(1)
+        except TypeError:
+            print('Regex Match Not Found, try another one.')
+            sys.exit(1)
