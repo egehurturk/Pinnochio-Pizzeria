@@ -1,0 +1,41 @@
+[<tr>
+<th colspan="2"><a name="toppings">Toppings</a></th>
+</tr>, <tr>
+<td width="50%">Pepperoni</td>
+</tr>, <tr>
+<td width="50%">Sausage</td>
+</tr>, <tr>
+<td width="50%">Mushrooms</td>
+</tr>, <tr>
+<td width="50%">Onions</td>
+</tr>, <tr>
+<td width="50%">Ham</td>
+</tr>, <tr>
+<td width="50%">Canadian Bacon</td>
+</tr>, <tr>
+<td width="50%">Pineapple</td>
+</tr>, <tr>
+<td width="50%">Eggplant</td>
+</tr>, <tr>
+<td width="50%">Tomato &amp; Basil</td>
+</tr>, <tr>
+<td width="50%">Green Peppers</td>
+</tr>, <tr>
+<td width="50%">Hamburger</td>
+</tr>, <tr>
+<td width="50%">Spinach</td>
+</tr>, <tr>
+<td width="50%">Artichoke</td>
+</tr>, <tr>
+<td width="50%">Buffalo Chicken</td>
+</tr>, <tr>
+<td width="50%">Barbecue Chicken</td>
+</tr>, <tr>
+<td width="50%">Anchovies</td>
+</tr>, <tr>
+<td width="50%">Black Olives</td>
+</tr>, <tr>
+<td width="50%">Fresh Garlic</td>
+</tr>, <tr>
+<td width="50%">Zucchini</td>
+</tr>]
