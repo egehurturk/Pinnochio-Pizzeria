@@ -4,76 +4,13 @@ Changelog: I'll write my Bugs, Errors, Improvements, Features here.
 
 
 ----- Date: 21 August, Friday -----
-# FIXME: I created 2 same menu items for items that has `small_price` and `large_price`. While rendering the HTML (menu.html), integrate those 2 menu Items into one displaying LARGE and SMALL prices.
 With menu items that does not have small/large prices, it is OK
+
+
+------ Date: 31 August Monday -------
+Created Admin Items, menu seems to be working fine.
+
+Start working on AJAX and MENU items, cart.
 # TODO: Design of Menu Items
 # TODO: Refactor the AJAX in app.js and turn into jQuery AJAX.
 # TODO: Work on the showcart view on orders.views. That view must return a JsonResponse object and parse in javascript.
-
-Snippet:
-`mylist = [Sub.objects.all()]
-appemd = [i for i in mylist]
-small = []
-large = []
-for i,j in enumerate(appemd):
-  if j%2==0:
-    small.append(j.price)
-  else:
-    large.append(j.price)
-    
-for sm, lg in zip(small, large):
-  print(f'{sm} {lg}')`
-  
-Or instead of doing this way, alter model Item to have small prices and large prices fields.
-
-====== 27 August Thursday =====
-Created `util.py` file to scrape Menu from the website:
-
-import requests
-import os
-import sys
-from bs4 import BeautifulSoup
-import pprint
-import re
-
-__all__ = ['Scraper']
-# .foodmenu, .toppingmenu,
-# [] -> foodmenu, [] -> toppingmenu
-
-class Scraper:
-
-
-    def __init__(self, url, file_):
-        self.url = url
-        self.file_ = file_
-
-    def get_response(self) -> requests.Response:
-        response = requests.get(self.url)
-        response.raise_for_status()
-        return response
-
-    def parse(self, response):
-        soup = BeautifulSoup(response.text, 'html.parser')
-        self.elems_food = soup.select("table.foodmenu > tbody > tr")
-        self.elems_toppings = soup.select("table.toppingmenu > tbody > tr")
-        return self.elems_food, self.elems_toppings
-
-
-    def save_to_file(self):
-        mode = 'a' if os.path.exists(re.findall(f'utilcontent/{self.file_}_food|topping.txt', )) else 'w'
-        try:
-            with open(f'utilcontent/{self.file_}_food.txt', mode) as f:
-              with open(f'utilcontent/{self.file_}_topping.txt', mode) as t:
-                f.write(str(self.elems_food))
-                t.write(str(self.elems_toppings))
-
-            print('Saved to file!')
-        except FileNotFoundError:
-            print('File cannot be found')
-            sys.exit(1)
-        except IOError:
-            print('File cannot be found. Enter a valid file name.')
-            sys.exit(1)
-        except TypeError:
-            print('Regex Match Not Found, try another one.')
-            sys.exit(1)

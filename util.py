@@ -41,7 +41,6 @@ class Scraper:
         self.elems_toppings = soup.select("table.toppingmenu > tbody > tr")
         return self.elems_food, self.elems_toppings
 
-
     def save_to_file(self) -> None:
         """
         Saves the parsed objects to file.
@@ -56,7 +55,6 @@ class Scraper:
                 t.write(str(self.elems_toppings))
 
         print('Saved to file!')
-
 
 if __name__ == '__main__':
     scraper = Scraper()

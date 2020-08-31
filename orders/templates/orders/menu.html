@@ -36,9 +36,12 @@
                 <img src="{% static 'orders/img/pizza.png' %}" alt="Logo" class="absolute mx-auto left-0 right-0 h-64 media" style="text-align: center">
               <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {% if user.is_authenticated %}
+                       {% if user.is_superuser %}
+                          <a href="{% url 'admin:index' %}" target="_blank" style="color: white;margin-right: 20px">Admin</a>
+                      {% endif %}
                       <div x-data="{open: false }"  class="text-left">
                         <div>
-                          <span class="rounded-md shadow-sm">
+                          <span class="rounded-md">
                             <button @click="open = true" class="mr-5 p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-red-700 transition duration-150 ease-in-out" aria-label="Notifications">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30"><path class="heroicon-ui" fill="#fff" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
                               </button>
@@ -138,18 +141,11 @@
                 <div class="item">
                     <div class="pad15">
                         <p class="font-bold">{{ sub.name }}</p>
-                        {% if sub.small_price == 0 %}
+                        {% if sub.small_price == None or sub.large_price == None %}
                             <div class="flex">
-                                <input type="radio" id="subs-only={{ sub.id }}" name="sub">
+                                <input type="radio" id="subs-only-{{ sub.id }}" name="sub">
                                 <label for="subs-only-{{ sub.id }}">
-                                    <p class="ml-1">Price: ${{ sub.large_price }}</p>
-                                </label>
-                            </div>
-                        {% elif sub.small_price < 1 or sub.large_price < 1 %}
-                            <div class="flex">
-                                <input type="radio" id="subs-only-2-{{ sub.id }}" name="sub">
-                                <label for="subs-only-2-{{sub.id }}">
-                                    <p class="ml-1">Price: ${{ sub.large_price }}</p>
+                                    <p class="ml-1">Price: ${{ sub.price }}</p>
                                 </label>
                             </div>
                         {% else %}
