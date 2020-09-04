@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropButton = $('.dropbtn');
     const closeButton = $('closeNotification');
     const notification = $('#notificationsLog')
+    var model = $("#succesmodal")
 
     // By default, dropdown menu is closed
     dropdown.hide();
@@ -121,48 +122,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // Sizing Options:
-    // 1 = Small
-    // 2 = Large
-    // If type is 0, then it means that the product is either PASTA or SALAD
     $('.orderButton').click((event) => {
 
-        var product_id = event.target.dataset.id;
-        var count = false
-        var sizing_small = $(`#${product_id.split("-")[0]}-small-${product_id.split("-")[1]}`).is(":checked");
-        var sizing_large = $(`#${product_id.split("-")[0]}-large-${product_id.split("-")[1]}`).is(":checked");
+        var product = event.target.dataset.id;
+        var category_name = `${product.split("-")[0]}` // name of category
+        var product_id = `${product.split("-")[1]}` // product id
+        var sm = $(`#${category_name}-small-${product_id}`).is(":checked");
+        var lg = $(`#${category_name}-large-${product_id}`).is(":checked");
+        var product_type; // "small", "large", "only"
 
+        if (sm) {
+            product_type = "small"
+        } else if (lg) {
+            product_type = "large"
+        } else {
+            product_type = "only"
+        }
 
-        // // Special cases for pasta and salad:
-
-        if (product_id.split("-")[0] != 'pasta' && product_id.split("-")[0] !='salad') {
-            if (sizing_small) {
-                count = 'small';
-            } else if (sizing_large) {
-                count = 'large';
-            } else {
-                alert('Nothing selected');
-                return;
+        if (category_name !== "pasta") {
+            if (category_name !== "salad") {
+                if (sm === false) {
+                    if (lg === false) {
+                        alert("Nothing is selected")
+                        return;
+                    }
+                }
             }
         }
 
-        const request = new XMLHttpRequest();
+        model.fadeToggle();
+        var succesbtn = $("#succesbtn")
+        succesbtn.click(()=> {
+            model.fadeOut();
+        })
 
+        $.ajax("/showcart", {
+            type: "GET",
+            data: {
+                product: product,
+                type: product_type
+            },
+            success: function(response) {
+                console.log("SUCCES SUCCESS SUCCESS")
+                console.log(response);
+            },
+            error: function(resp) {
+                console.log("ERROR ERROR ERROR!")
+                console.log(resp)
+            }
 
-        request.open('GET', `/showcart?product=${product_id}&type=${count}`);
+        })
 
-        // request.onload = function () {
-        //     const data = JSON.parse(request.responseText)
-        //     var product = data.product_id;
-        //     var size = data.size;
-        //     var place = $('#menuItems')
-        //
-        //     //   SIZE: 1=SMALL / 2=LARGE / 0=PASTA OR SALAD
-        //
-        //    place.text(`${product} is product and ${size} is size`)
-        // }
-
-        request.send()
 
 
     });
@@ -170,5 +180,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-
-// bugs in SICILIAN and DINNER PLATTERS
