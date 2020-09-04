@@ -141,28 +141,28 @@
                 <div class="item">
                     <div class="pad15">
                         <p class="font-bold">{{ sub.name }}</p>
-                        {% if sub.small_price == None or sub.large_price == None %}
+                        {% if sub.large_price == None %}
                             <div class="flex">
-                                <input type="radio" id="subs-only-{{ sub.id }}" name="sub">
-                                <label for="subs-only-{{ sub.id }}">
-                                    <p class="ml-1">Price: ${{ sub.price }}</p>
+                                <input type="radio" id="sub-small-{{ sub.id }}" name="sub">
+                                <label for="sub-small-{{ sub.id }}">
+                                    <p class="ml-1">Price: ${{ sub.small_price }}</p>
                                 </label>
                             </div>
                         {% else %}
                             <div class="flex">
-                                <input type="radio" id="subs-small-{{ sub.id }}" name="sub">
-                                <label for="subs-small-{{ sub.id }}">
+                                <input type="radio" id="sub-small-{{ sub.id }}" name="sub">
+                                <label for="sub-small-{{ sub.id }}">
                                    <p class="ml-1">Small Price: ${{ sub.small_price }}</p>
                                 </label>
                             </div>
                             <div class="flex">
-                                <input type="radio" id="subs-large-{{ sub.id }}" name="sub">
-                                <label for="subs-large-{{ sub.id }}">
+                                <input type="radio" id="sub-large-{{ sub.id }}" name="sub">
+                                <label for="sub-large-{{ sub.id }}">
                                     <p class="ml-1">Large Price: ${{ sub.large_price }}</p>
                                 </label>
                             </div>
                         {% endif %}
-                        <button @click="showModal = true" data-id="subs-{{ sub.id }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                        <button @click="showModal = true" data-id="sub-{{ sub.id }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
                     </div>
                 </div>
                {% endfor %}
@@ -224,26 +224,26 @@
                         <p class="font-bold">{{ sicilian.name }}</p>
                         {% if sicilian.small_price == 0 %}
                            <div class="flex">
-                                <input type="radio" id="sicilian-only={{ sicilian.id|add:"-5" }}" name="sicilian">
-                                <label for="sicilian-only-{{ sicilian.id|add:"-5" }}">
+                                <input type="radio" id="sicilian-only={{ sicilian.id }}" name="sicilian">
+                                <label for="sicilian-only-{{ sicilian.id }}">
                                     <p class="ml-1">Price: ${{ sicilian.large_price }}</p>
                                 </label>
                             </div>
                         {% else %}
                             <div class="flex">
-                                <input type="radio" id="sicilian-small-{{ sicilian.id|add:"-5" }}" name="sicilian">
-                                <label for="sicilian-small-{{ sicilian.id|add:"-5" }}">
+                                <input type="radio" id="sicilian-small-{{ sicilian.id }}" name="sicilian">
+                                <label for="sicilian-small-{{ sicilian.id }}">
                                    <p class="ml-1">Small Price: ${{ sicilian.small_price }}</p>
                                 </label>
                             </div>
                             <div class="flex">
-                                <input type="radio" id="sicilian-large-{{ sicilian.id|add:"-5" }}" name="sicilian">
+                                <input type="radio" id="sicilian-large-{{ sicilian.id }}" name="sicilian">
                                 <label for="sicilian-large-{{ sicilian.id }}">
                                     <p class="ml-1">Large Price: ${{ sicilian.large_price }}</p>
                                 </label>
                             </div>
                         {% endif %}
-                        <button @click="showModal = true" data-id="sicilian-{{ sicilian.id|add:"-5" }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                        <button @click="showModal = true" data-id="sicilian-{{ sicilian.id }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
                     </div>
                 </div>
                {% endfor %}
@@ -263,26 +263,26 @@
                         <p class="font-bold">{{ onedinner.name }}</p>
                         {% if onedinner.small_price == 0 %}
                             <div class="flex">
-                                <input type="radio" id="onedinner-only={{ onedinner.id|add:'-1' }}" name="onedinner">
-                                <label for="onedinner-only-{{ onedinner.id|add:'-1' }}">
+                                <input type="radio" id="onedinner-only={{ onedinner.id }}" name="onedinner">
+                                <label for="onedinner-only-{{ onedinner.id }}">
                                     <p class="ml-1">Price: ${{ onedinner.large_price }}</p>
                                 </label>
                             </div>
                         {% else %}
                             <div class="flex">
-                                <input type="radio" id="onedinner-small-{{ onedinner.id|add:'-1' }}" name="onedinner">
-                                <label for="onedinner-small-{{ onedinner.id|add:'-1' }}">
+                                <input type="radio" id="onedinner-small-{{ onedinner.id }}" name="onedinner">
+                                <label for="onedinner-small-{{ onedinner.id }}">
                                    <p class="ml-1">Small Price: ${{ onedinner.small_price }}</p>
                                 </label>
                             </div>
                             <div class="flex">
-                                <input type="radio" id="onedinner-large-{{ onedinner.id|add:'-1' }}" name="onedinner">
-                                <label for="onedinner-large-{{ onedinner.id|add:'-1' }}">
+                                <input type="radio" id="onedinner-large-{{ onedinner.id }}" name="onedinner">
+                                <label for="onedinner-large-{{ onedinner.id }}">
                                     <p class="ml-1">Large Price: ${{ onedinner.large_price }}</p>
                                 </label>
                             </div>
                         {% endif %}
-                        <button @click="showModal = true" data-id="onedinner-{{ onedinner.id|add:"-1" }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                        <button @click="showModal = true" data-id="onedinner-{{ onedinner.id }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
                     </div>
                 </div>
                {% endfor %}
@@ -330,28 +330,28 @@
 </div>
 
 
-    <div x-show="showModal" class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
+    <div id="succesmodal" class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center" style="display: none">
     <div
-            x-transition:enter="ease-out duration-300"
-            x-transition:enter-start="opacity-0"
-            x-transition:enter-leave="opacity-100"
-            x-transition:leave="ease-in duration-200"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            x-show="showModal"
+{#            x-transition:enter="ease-out duration-300"#}
+{#            x-transition:enter-start="opacity-0"#}
+{#            x-transition:enter-leave="opacity-100"#}
+{#            x-transition:leave="ease-in duration-200"#}
+{#            x-transition:leave-start="opacity-100"#}
+{#            x-transition:leave-end="opacity-0"#}
+{#            x-show="showModal"#}
             class="fixed inset-0 transition-opacity"
     >
         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
     </div>
 
     <div
-            x-transition:enter="ease-out duration-300"
-            x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            x-transition:enter-leave="opacity-100 translate-y-0 sm:scale-100"
-            x-transition:leave="ease-in duration-200"
-            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            class="bg-white rounded-lg absolute right-0 top-0 mt-16 mr-8 px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6" :class="{ 'show d-block': showModal }" x-show="showModal" role="dialog" aria-modal="true" aria-labelledby="modal-headline"
+{#            x-transition:enter="ease-out duration-300"#}
+{#            x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"#}
+{#            x-transition:enter-leave="opacity-100 translate-y-0 sm:scale-100"#}
+{#            x-transition:leave="ease-in duration-200"#}
+{#            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"#}
+{#            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"#}
+            class="bg-white rounded-lg absolute right-0 top-0 mt-16 mr-8 px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline"
     >
     <div>
       <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
@@ -372,7 +372,7 @@
     </div>
     <div class="mt-5 sm:mt-6">
       <span class="flex w-full rounded-md shadow-sm">
-        <button @click="showModal = false" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-gray-900 text-base leading-6 font-medium text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+        <button type="button" id="succesbtn" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-gray-900 text-base leading-6 font-medium text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5">
           Go back to menu
         </button>
       </span>
