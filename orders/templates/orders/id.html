@@ -1,0 +1,42 @@
+{% extends 'orders/base.html' %}
+
+
+{% block title %}API Id{% endblock %}
+{% block content %}
+{#    Subs #}
+    <h2>Subs</h2>
+    {% for sid in subid %}
+
+        {{ sid }}<br>
+    {% endfor %}
+    <h2>Regular pizza</h2>
+    {% for rpid in regpizzaid %}
+        {{ rpid }}<br>
+    {% endfor %}
+    <h2>Sicilian pizza</h2>
+    {% for spid in sicpizzaid %}
+        {{ spid }}<br>
+    {% endfor %}
+    <h2>Pasta</h2>
+    {% for pid in pastaid %}
+        {{ pid }}<br>
+    {% endfor %}
+    <h2>Extras</h2>
+    {% for eid in extraid %}
+        {{ eid }}<br>
+    {% endfor %}
+    <h2>Salad</h2>
+    {% for said in saladid %}
+        {{ said }}<br>
+    {% endfor %}
+    <h2>Topping</h2>
+    {% for tid in toppingid %}
+        {{ tid }}<br>
+    {% endfor %}
+    <h2>Dinner</h2>
+    {% for did in dinnerid %}
+        {{ did }}<br>
+    {% endfor %}
+
+
+{% endblock content %}
