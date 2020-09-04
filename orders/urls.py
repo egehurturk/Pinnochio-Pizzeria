@@ -7,5 +7,6 @@ urlpatterns = [
     path("locate/", views.locate, name="locate"),
     path("menu/", views.menu, name="menu"),
     path("showcart/", views.showcart, name="showcart"),
+    path("menuidview/", views.menuidview, name="menu-id-view")
 
 ]
