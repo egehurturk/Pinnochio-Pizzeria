@@ -5,9 +5,7 @@ import asyncio
 import aiohttp
 import functools
 import time
-
-__all__ = ['Scraper']
-
+from orders.models import *
 
 # .foodmenu, .toppingmenu,
 # [] -> foodmenu, [] -> toppingmenu
@@ -55,6 +53,18 @@ class Scraper:
                 t.write(str(self.elems_toppings))
 
         print('Saved to file!')
+
+
+def switch(x):
+    return {
+        'sub': Sub.objects.all(),
+        'pasta': Pasta.objects.all(),
+        'onedinner': Dinner.objects.first(),
+        'salad': Salad.objects.all(),
+        'sicilian': Pizza.objects.filter(crust="Sicilian").all(),
+        'regular': Pizza.objects.filter(crust="Sicilian").all(),
+    }.get(x)
+
 
 if __name__ == '__main__':
     scraper = Scraper()
