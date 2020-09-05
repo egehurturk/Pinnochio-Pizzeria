@@ -55,16 +55,6 @@ class Scraper:
         print('Saved to file!')
 
 
-def switch(x):
-    return {
-        'sub': Sub.objects.all(),
-        'pasta': Pasta.objects.all(),
-        'onedinner': Dinner.objects.first(),
-        'salad': Salad.objects.all(),
-        'sicilian': Pizza.objects.filter(crust="Sicilian").all(),
-        'regular': Pizza.objects.filter(crust="Sicilian").all(),
-    }.get(x)
-
 
 if __name__ == '__main__':
     scraper = Scraper()
