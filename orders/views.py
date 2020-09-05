@@ -2,8 +2,16 @@ from django.shortcuts import render
 from .models import Pizza, Topping, Sub, Extra, Pasta, Salad, Dinner
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from util import switch
 from django.core import serializers
+import sys
+
+def str_to_class(str):
+    try:
+        return globals()[str.capitalize()]
+    except AttributeError:
+        print(f"module {sys.modules[__name__]} has no attribute {str}")
+
+
 
 def index(request):
     return render(request, "orders/index.html")
@@ -20,7 +28,7 @@ def menu(request):
         "regularpizza": Pizza.objects.filter(crust="Regular").all(),
         "sicilianpizza": Pizza.objects.filter(crust="Sicilian").all(),
         "subs": Sub.objects.all(),
-        "dinner": Dinner.objects.all(),
+        "dinners": Dinner.objects.all(),
         "salads": Salad.objects.all(),
         "Toppings": Topping.objects.all(),
         "Pasta": Pasta.objects.all()
@@ -41,17 +49,24 @@ def showcart(request):
     product_name = product.split("-")[0]
     product_id = product.split("-")[1]
 
-    query = switch(product_name)
+
+    MODEL_CLASS = str_to_class(product_name)
+    try:
+        queryset = MODEL_CLASS.objects.get(pk=product_id)
+        queryprice = queryset.price
+    except AttributeError:
+        print("Error occured")
+
 
     db_list = ["Dinner", "Extra", "Pasta", "Pizza", "Salad", "Sub", "Topping"]
-
 
     return JsonResponse(
         {
             "product_name": product_name,
             "product_id": product_id,
             "size": size,
-            "queryresult": serializers.serialize('json', [query]),
+            "queryresult": serializers.serialize('json', [queryset]),
+            "queryprice": serializers.serialize('json', [queryprice])
         }
     )
 
@@ -70,8 +85,6 @@ def menuidview(request):
     return render(request, "orders/id.html", context)
 
 
-
-
 """
 Subs: {id: 28}...{id: 42} / difference: 27
 Reg-Pizza: {id: 14}...{id: 18} / difference: 13
@@ -82,3 +95,5 @@ Toppings: {id: 43}...{id: 61} / difference; 42
 Salad: {id: 24}...{id: 27} / difference: 23
 Dinner: {id: 1}...{id: 6}  / difference: 0
 """
+
+
