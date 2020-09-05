@@ -257,32 +257,32 @@
         <h3 class="m-4 font-family font-bold text-5xl">Dinner Platters</h3>
 		<div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel"  data-interval="1000">
             <div class="MultiCarousel-inner">
-                {% for onedinner in dinner %}
+                {% for dinner in dinners %}
                 <div class="item">
                     <div class="pad15">
-                        <p class="font-bold">{{ onedinner.name }}</p>
-                        {% if onedinner.small_price == 0 %}
+                        <p class="font-bold">{{ dinner.name }}</p>
+                        {% if dinner.small_price == 0 %}
                             <div class="flex">
-                                <input type="radio" id="onedinner-only={{ onedinner.id }}" name="onedinner">
-                                <label for="onedinner-only-{{ onedinner.id }}">
-                                    <p class="ml-1">Price: ${{ onedinner.large_price }}</p>
+                                <input type="radio" id="dinner-only={{ dinner.id }}" name="dinner">
+                                <label for="dinner-only-{{ dinner.id }}">
+                                    <p class="ml-1">Price: ${{ dinner.large_price }}</p>
                                 </label>
                             </div>
                         {% else %}
                             <div class="flex">
-                                <input type="radio" id="onedinner-small-{{ onedinner.id }}" name="onedinner">
-                                <label for="onedinner-small-{{ onedinner.id }}">
-                                   <p class="ml-1">Small Price: ${{ onedinner.small_price }}</p>
+                                <input type="radio" id="dinner-small-{{ dinner.id }}" name="dinner">
+                                <label for="dinner-small-{{ dinner.id }}">
+                                   <p class="ml-1">Small Price: ${{ dinner.small_price }}</p>
                                 </label>
                             </div>
                             <div class="flex">
-                                <input type="radio" id="onedinner-large-{{ onedinner.id }}" name="onedinner">
-                                <label for="onedinner-large-{{ onedinner.id }}">
-                                    <p class="ml-1">Large Price: ${{ onedinner.large_price }}</p>
+                                <input type="radio" id="dinner-large-{{ dinner.id }}" name="dinner">
+                                <label for="dinner-large-{{ dinner.id }}">
+                                    <p class="ml-1">Large Price: ${{ dinner.large_price }}</p>
                                 </label>
                             </div>
                         {% endif %}
-                        <button @click="showModal = true" data-id="onedinner-{{ onedinner.id }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
+                        <button @click="showModal = true" data-id="dinner-{{ dinner.id }}" class="orderButton rounded font-family bg-red-600 hover:bg-red-700 p-2 w-full mt-3 font-bold text-white">ORDER</button>
                     </div>
                 </div>
                {% endfor %}
