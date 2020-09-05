@@ -11,6 +11,22 @@ With menu items that does not have small/large prices, it is OK
 Created Admin Items, menu seems to be working fine.
 
 Start working on AJAX and MENU items, cart.
-# TODO: Design of Menu Items
-# TODO: Refactor the AJAX in app.js and turn into jQuery AJAX.
-# TODO: Work on the showcart view on orders.views. That view must return a JsonResponse object and parse in javascript.
+: Design of Menu Items
+: Refactor the AJAX in app.js and turn into jQuery AJAX.
+: Work on the showcart view on orders.views. That view must return a JsonResponse object and parse in javascript.
+
+------ Date: 5 September, Sunday ------
+Refactored the AJAX in app.js and turned into jQuery AJAX.
+Working on the showcart view in orders.views. Created a new function that handles the str to class conversion. I have errors
+                                    Look at them.
+
+Useful links:
+* https://stackoverflow.com/questions/1176136/convert-string-to-python-class-object
+* https://stackoverflow.com/questions/529240/what-happened-to-types-classtype-in-python-3
+* https://stackoverflow.com/questions/11322049/how-to-convert-string-to-class-sub-attribute-with-python
+* https://stackoverflow.com/questions/1176136/convert-string-to-python-class-object/13808375
+* https://linux.die.net/diveintopython/html/file_handling/more_on_modules.html
+* https://stackoverflow.com/questions/21095654/what-is-a-nonetype-object#:~:text=NoneType%20is%20the%20type%20for,don't%20return%20anything%22.&text=You%20cannot%20add%20None%20to%20strings%20or%20other%20objects.
+* https://stackoverflow.com/questions/757022/how-do-you-serialize-a-model-instance-in-django
+* https://stackoverflow.com/questions/45856557/queryset-object-has-no-attribute-meta
+
