@@ -150,11 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        model.fadeToggle();
-        var succesbtn = $("#succesbtn")
-        succesbtn.click(()=> {
-            model.fadeOut();
-        })
+
 
         $.ajax("/showcart", {
             type: "GET",
@@ -163,12 +159,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 type: product_type
             },
             success: function(response) {
-                console.log("SUCCES SUCCESS SUCCESS")
-                console.log(response);
+                model.fadeToggle();
+                var succesbtn = $("#succesbtn")
+                succesbtn.click(()=> {
+                    model.fadeOut();
+                })
+                var product_id = response["product_id"] // id
+                var product_name = response["product_name"] // name gotten from menu
+                var query_category = response["query_category"] // category
+                var crust = response["query_crust"] // crust for pizza
+                var large_price = response["query_large_price"] // large_price (null if there isn't)
+                var max_toppings = response["query_max_toppings"] // max_toppings for pizza
+                var name = response["query_name"] // name
+                var price = response["query_price"] // price (null if there isn't)
+                var small_price = response["query_small_price"] // small_price (null if there isn't)
+                var query = response["queryset"] // query
+                var size = response["size"] // null if it is salad or pasta
+                console.log(`${product_id} \n  ${product_name} \n
+                 ${query_category}\n ${crust}\n ${large_price}\n ${max_toppings}\n ${name}\n ${price} \n${small_price}\n
+                    ${query}\n ${size}`)
+
+                $("#menuItems").append() // implement this.
+
+
             },
             error: function(resp) {
-                console.log("ERROR ERROR ERROR!")
-                console.log(resp)
+                console.log("Something went wrong.")
             }
 
         })
