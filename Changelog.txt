@@ -12,8 +12,8 @@ Created Admin Items, menu seems to be working fine.
 
 Start working on AJAX and MENU items, cart.
 : Design of Menu Items
-: Refactor the AJAX in app.js and turn into jQuery AJAX.
-: Work on the showcart view on orders.views. That view must return a JsonResponse object and parse in javascript.
+[DONE]: Refactor the AJAX in app.js and turn into jQuery AJAX.
+[DONE]: Work on the showcart view on orders.views. That view must return a JsonResponse object and parse in javascript.
 
 ------ Date: 5 September, Sunday ------
 Refactored the AJAX in app.js and turned into jQuery AJAX.
@@ -30,5 +30,13 @@ Useful links:
 * https://stackoverflow.com/questions/757022/how-do-you-serialize-a-model-instance-in-django
 * https://stackoverflow.com/questions/45856557/queryset-object-has-no-attribute-meta
 
------- Date: 7 September, Monday ------
-I got a problem saying that: `AttributeError: 'float' object has no attribute '_meta'` because of serialization
+------ Date: 7 September, Monday -----
+Everything about AJAX is fixed, seems to be working fine. Next step: append data to menuItem dropdown.
+Links:
+* https://stackoverflow.com/questions/53167992/access-model-field-in-serializer
+* https://stackoverflow.com/questions/45856557/queryset-object-has-no-attribute-meta
+* https://stackoverflow.com/questions/47031967/django-str-object-has-no-attribute-meta/49246116
+* https://stackoverflow.com/questions/47031967/django-str-object-has-no-attribute-meta/49246116
+
+Common Error: ... has no attribute  _meta (That is because of django's serializers, use serializers to only serialize queries
+                                            not strings or other types.)
