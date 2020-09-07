@@ -48,15 +48,21 @@ def showcart(request):
 
     product_name = product.split("-")[0]
     product_id = product.split("-")[1]
+    print(product_name)
+    if product_name == "regular" or product_name == "sicilian":
+        MODEL_CLASS = str_to_class("Pizza")
+    else:
+        MODEL_CLASS = str_to_class(product_name)
 
 
-    MODEL_CLASS = str_to_class(product_name)
-    try:
-        queryset = MODEL_CLASS.objects.get(pk=product_id)
-        queryprice = queryset.price
-    except AttributeError:
-        print("Error occured")
-
+    queryset = MODEL_CLASS.objects.get(pk=product_id)
+    query_small_price = queryset.small_price if queryset.small_price else "null"
+    query_large_price = queryset.large_price if queryset.large_price else "null"
+    query_price = queryset.price if queryset.price else "null"
+    query_crust = queryset.crust if MODEL_CLASS == "Pizza" else "null"
+    query_max_toppings = queryset.max_toppings if MODEL_CLASS == "Pizza" else "null"
+    query_name = queryset.name
+    query_category = queryset.category
 
     db_list = ["Dinner", "Extra", "Pasta", "Pizza", "Salad", "Sub", "Topping"]
 
@@ -65,12 +71,18 @@ def showcart(request):
             "product_name": product_name,
             "product_id": product_id,
             "size": size,
-            "queryresult": serializers.serialize('json', [queryset]),
-            "queryprice": serializers.serialize('json', [queryprice])
+            "queryset": serializers.serialize('json', [queryset]),
+            "query_small_price": serializers.serialize('json', [query_small_price]),
+            "query_large_price": serializers.serialize('json', [query_large_price]),
+            "query_price": serializers.serialize('json', [query_price]),
+            "query_crust": serializers.serialize('json', [query_crust]),
+            "query_max_toppings": serializers.serialize('json', [query_max_toppings]),
+            "query_name": serializers.serialize('json', [query_name]),
+            "query_category": serializers.serialize('json', [query_category]),
         }
     )
 
-
+# For development environment
 def menuidview(request):
     context = {
         "subid": Sub.objects.all().values('id'),

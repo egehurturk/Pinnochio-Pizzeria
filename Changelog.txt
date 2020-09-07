@@ -30,3 +30,5 @@ Useful links:
 * https://stackoverflow.com/questions/757022/how-do-you-serialize-a-model-instance-in-django
 * https://stackoverflow.com/questions/45856557/queryset-object-has-no-attribute-meta
 
+------ Date: 7 September, Monday ------
+I got a problem saying that: `AttributeError: 'float' object has no attribute '_meta'` because of serialization
