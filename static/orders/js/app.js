@@ -122,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+
     $('.orderButton').click((event) => {
 
         var product = event.target.dataset.id;
@@ -179,7 +180,26 @@ document.addEventListener('DOMContentLoaded', () => {
                  ${query_category}\n ${crust}\n ${large_price}\n ${max_toppings}\n ${name}\n ${price} \n${small_price}\n
                     ${query}\n ${size}`)
 
-                $("#menuItems").append() // implement this.
+                var menu = $("#menuIcon");
+                var content = `
+                <div>
+                    <div class="flex items-center">
+                      <div class="ml-5 w-0 flex-1">
+                        <dl>
+                          <dt class="text-sm leading-5 font-medium text-gray-500 truncate">
+                           ${name}
+                          </dt>
+                          <dd class="flex items-baseline">
+                            <div class="text-l leading-8 font-semibold text-gray-900">
+                              $ ${large_price}
+                            </div>
+                          </dd>
+                        </dl>
+                      </div>
+                    </div>
+                </div>
+                `
+                menu.append(content)
 
 
             },
