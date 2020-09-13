@@ -40,3 +40,7 @@ Links:
 
 Common Error: ... has no attribute  _meta (That is because of django's serializers, use serializers to only serialize queries
                                             not strings or other types.)
+------ Date: 07/13/2020 ------
+When returning a JsonResponse view, do not include both the large_price or small_price, include the one
+client wanted (which is the size variable).
+You can do something like if else statement to achiveve this.
